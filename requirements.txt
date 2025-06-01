@@ -1,0 +1,5 @@
+pystray
+PIL
+requests
+threading
+time
