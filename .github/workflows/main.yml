@@ -27,7 +27,7 @@ jobs:
 
       - name: Build executable with PyInstaller
         run: |
-          pyinstaller --onefile --windowed -n "HackatimeWindowsNotif" --hidden-import=pystray main.py
+          pyinstaller --onefile --windowed -n "HackatimeWindowsNotif" main.py
 
 
       - name: Upload artifact

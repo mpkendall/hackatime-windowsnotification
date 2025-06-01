@@ -6,7 +6,7 @@ import threading
 import time
 import webbrowser
 
-WAKATIME_API_KEY = 'a23ed2a9-1eae-4092-a489-c6c7b585a083'
+WAKATIME_API_KEY = ''
 API_URL = 'https://hackatime.hackclub.com/api/hackatime/v1/users/current/statusbar/today'
 
 def get_today_time():

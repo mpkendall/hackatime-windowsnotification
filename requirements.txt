@@ -1,5 +1,5 @@
 pystray
-PIL
+pillow
 requests
 threading
 time
