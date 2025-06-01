@@ -5,9 +5,22 @@ import requests
 import threading
 import time
 import webbrowser
+import tkinter as tk
+from tkinter import simpledialog
+import configparser
+import os
 
-WAKATIME_API_KEY = ''
-API_URL = 'https://hackatime.hackclub.com/api/hackatime/v1/users/current/statusbar/today'
+def get_config(cfg_path=".wakatime.cfg"):
+    config = configparser.ConfigParser()
+    if os.path.exists(cfg_path):
+        config.read(cfg_path)
+        api_key = config["settings"].get("api_key", "")
+        api_url = config["settings"].get("api_url", "")
+        return api_key, api_url
+    return "", ""
+
+WAKATIME_API_KEY, BASE_API_URL = get_config()
+API_URL = f'{BASE_API_URL}/users/current/statusbar/today' if BASE_API_URL else 'https://hackatime.hackclub.com/api/hackatime/v1/users/current/statusbar/today'
 
 def get_today_time():
     headers = {'Authorization': f'Bearer {WAKATIME_API_KEY}'}
@@ -35,8 +48,8 @@ def run_tray():
         icon.stop()
 
     icon.menu = Menu(
-        item('Quit', on_quit),
-        item('Open Hackatime', open_hackatime)
+        item('Open Hackatime', open_hackatime),
+        item('Quit', on_quit)
     )
 
     def update_tooltip():
@@ -49,7 +62,7 @@ def run_tray():
             time.sleep(300)
 
     icon.icon = create_icon_image()
-    icon.title = "WakaTime: Loading..."
+    icon.title = "hackatime: Loading..."
     threading.Thread(target=update_tooltip, daemon=True).start()
     icon.run()
 
